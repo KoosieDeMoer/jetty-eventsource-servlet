@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Getting server updates</h1>
+<div id="result"></div>
+
+<script>
+if(typeof(EventSource) !== "undefined") {
+    var source = new EventSource("/event-source");
+    source.onmessage = function(event) {
+        document.getElementById("result").innerHTML += event.data + "<br>";
+    };
+    source.onopen = function () {
+    	  connectionOpen(true);
+    	};
+
+    	source.onerror = function () {
+    	  connectionOpen(false);
+    	};
+
+} else {
+    document.getElementById("result").innerHTML = "Sorry, your browser does not support server-sent events...";
+}
+
+function connectionOpen(value) {
+	alert('open: ' + value);
+}
+</script>
+
+</body>
+</html>
